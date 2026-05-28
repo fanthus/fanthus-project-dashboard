@@ -1,65 +1,115 @@
-# ProjectDashboard / DevDash
+# DevDash · 本地项目驾驶舱
 
-DevDash is a macOS-first local project dashboard built with Tauri 2, React, Vite, and Rust commands. It keeps project metadata outside your repositories at:
+**ProjectDashboard（DevDash）** 是一款面向 macOS 开发者的本地项目看板：把散落在磁盘各处的仓库收进一个窗口，看清进度、README、Git 状态，并一键跳进 Finder、Cursor、Xcode 或 Terminal。
+
+不联网、不上云、不往你的项目里写任何文件。
+
+---
+
+## 为什么需要它
+
+本地项目一多，常见痛点是：
+
+- 文件夹记得住，**当前做到哪、下一步是什么** 容易忘
+- 想快速打开 README 或看分支/未提交改动，要在 Finder 和终端之间来回切
+- `npm run dev`、`cargo tauri dev` 等命令重复敲，**没有统一的快捷入口**
+- 用 Notion / 表格管项目，要么太重，要么和代码目录脱节
+
+DevDash 只做一件事：**在你自己的 Mac 上，给每个项目一张可操作的卡片**——元数据与代码目录分离，不污染仓库。
+
+---
+
+## 你能做什么
+
+| 能力 | 说明 |
+|------|------|
+| **集中管理** | 手动录入或拖入文件夹，维护名称、描述、状态、标签、进度与下一步 |
+| **快速筛选** | 按搜索词、状态（想法 / 进行中 / 暂停 / 已上线 / 已归档）、标签浏览 |
+| **README 预览** | 自动读取项目目录下的 `README.md`，Markdown 渲染，可跳转 Cursor |
+| **Git 一览** | 当前分支、工作区状态、最近 5 条提交 |
+| **一键打开** | Finder · Cursor · Xcode（自动定位 `.xcworkspace` / `.xcodeproj`）· Terminal |
+| **自定义脚本** | 为每个项目配置命令（如 `npm run tauri dev`），在项目目录执行并查看输出 |
+| **安全移除** | 从看板移除或归档记录；**不会删除本地项目文件** |
+
+拖入文件夹时，只保存路径和默认信息（文件夹名 → 项目名），**不会**自动识别标签、生成脚本或修改项目目录——避免「黑盒扫描」带来的意外。
+
+---
+
+## 适合谁
+
+- 同时维护多个 side project、客户端或全栈仓库的 **独立开发者**
+- 希望用轻量工具跟踪进度，又不想把笔记写进 Git 的 **个人工作流**
+- 主要在 **macOS** 上开发，日常使用 Cursor / Xcode / Terminal 的创作者
+
+---
+
+## 快速开始
+
+**环境**：macOS，已安装 [Node.js](https://nodejs.org/) 与 [Rust](https://www.rust-lang.org/tools/install)（Tauri 2 构建需要）。
+
+```bash
+git clone <你的仓库地址>
+cd project-dashboard
+npm install
+npm run tauri dev
+```
+
+首次运行后，项目元数据保存在：
 
 ```txt
 ~/.devdash/projects.json
 ```
 
-No backend server, cloud database, account system, telemetry, or repository pollution is used.
+与代码仓库完全分离；换机器时可自行备份该文件。
 
-## Run
+---
+
+## 典型使用方式
+
+1. **添加项目** — 点击「添加项目」填写详情，或「选择文件夹」/ 拖入目录快速入库  
+2. **维护上下文** — 在概览里写清进度、下一步、标签与状态  
+3. **日常切换** — 左侧筛选找到目标，右侧看 README / Git，需要时用顶部按钮打开常用工具  
+4. **固化命令** — 在「脚本」页配置常用启动命令，减少重复输入  
+5. **收尾** — 项目告一段落可归档；仅从 DevDash 移除不会动磁盘上的代码  
+
+---
+
+## 隐私与信任
+
+- **纯本地**：无后端、无账号、无遥测  
+- **零侵入**：不向项目目录写入配置或隐藏文件  
+- **路径校验**：拒绝将 `/`、`/Users`、用户主目录等过宽路径登记为项目  
+- **脚本安全**：仅执行你在项目中显式配置的命令，并拦截部分明显危险的命令模式；脚本通过 `zsh` 运行，请只配置你信任的命令  
+
+DevDash 是工作台，不是部署平台——**它不会替你执行 `rm -rf` 或删除本地项目**。
+
+---
+
+## 技术栈（给贡献者）
+
+| 层级 | 技术 |
+|------|------|
+| 桌面壳 | [Tauri 2](https://v2.tauri.app/) |
+| 界面 | React 18 · Vite · Lucide |
+| 能力层 | Rust commands（存储、Git、打开应用、脚本执行） |
 
 ```bash
-npm install
-npm run tauri dev
+npm run build          # 前端构建
+npm run tauri build    # 打包 macOS 应用
 ```
 
-## First Version Scope
+---
 
-- Add a project manually with name, path, description, status, tags, progress, next steps, and custom scripts.
-- Drag a folder into the app, or choose a folder, to add it directly as a project.
-- Folder-based adding only saves the path and default metadata. It does not detect tags, generate scripts, run commands, or modify the project directory.
-- Browse projects by search, status, and tag.
-- Read and render README content with Markdown.
-- Show Git branch, working tree status, and the latest five commits.
-- Open a project in Finder, Cursor, Xcode, or Terminal through Rust commands.
-- Run configured scripts in the project working directory and show stdout/stderr after completion.
-- Archive a project, remove its DevDash record, or show the delete-local-files warning without deleting files.
+## 路线图（当前 v0.1）
 
-## Safety Notes
+- [x] 项目 CRUD、拖拽/选择文件夹添加  
+- [x] 搜索 / 状态 / 标签筛选  
+- [x] README · Git · 自定义脚本  
+- [x] Finder / Cursor / Xcode / Terminal 打开  
+- [ ] 目录批量扫描入库（`scan_directory` 已预留，UI 待接入）  
 
-- Open operations validate that the target path exists and is a directory.
-- Adding projects rejects broad system/user roots such as `/`, `/Users`, `/Applications`, and your home directory.
-- Duplicate paths are not added twice; DevDash returns the existing project record.
-- Git and open operations use `std::process::Command` with arguments instead of shell string concatenation.
-- Script execution uses `/bin/zsh -lc` because scripts are user-defined. DevDash blocks several obvious destructive command patterns, but you should only run commands you configured and trust.
-- This version does not implement `rm -rf` or direct local project deletion.
+---
 
-## Data Shape
+## 许可证
 
-```json
-{
-  "projects": [
-    {
-      "id": "uuid",
-      "name": "DevDash",
-      "path": "/Users/you/Projects/devdash",
-      "description": "Local project dashboard",
-      "status": "active",
-      "tags": ["macOS", "Tauri", "React"],
-      "progress": "基础功能已完成",
-      "nextSteps": "继续打磨项目扫描和脚本输出",
-      "scripts": [
-        {
-          "name": "Dev",
-          "command": "npm run tauri dev"
-        }
-      ],
-      "createdAt": "2026-05-28T00:00:00Z",
-      "updatedAt": "2026-05-28T00:00:00Z",
-      "archivedAt": null
-    }
-  ]
-}
-```
+尚未在仓库中声明开源协议；如需对外分发，请自行补充 LICENSE。
