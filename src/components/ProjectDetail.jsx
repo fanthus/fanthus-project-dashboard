@@ -8,11 +8,11 @@ import {
   FolderOpen,
   GitBranch,
   Terminal,
-  Trash2,
   X,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { formatDate, statusLabel } from '../utils/status';
+import { confirmAction } from '../utils/confirm';
 import GitPanel from './GitPanel';
 import ReadmeViewer from './ReadmeViewer';
 import ScriptPanel from './ScriptPanel';
@@ -71,13 +71,28 @@ export default function ProjectDetail({
     }
   };
 
+  const confirmArchive = async () => {
+    if (!(await confirmAction(`确定归档项目「${project.name}」吗？`, { title: '归档项目' }))) return;
+    onArchive();
+  };
+
+  const confirmRemove = async () => {
+    if (!(await confirmAction(
+      `从 DevDash 移除「${project.name}」？\n本地项目目录不会被删除。`,
+      { title: '从 DevDash 移除' },
+    ))) return;
+    onRemove();
+  };
+
   return (
     <aside className="detail-panel" aria-label="项目详情">
       <div className="inspector-toolbar">
         <div className="detail-header">
           <div>
-            <span className={`status-badge ${project.status}`}>{statusLabel(project.status)}</span>
-            <h2>{project.name}</h2>
+            <div className="detail-title-row">
+              <h2>{project.name}</h2>
+              <span className={`status-badge ${project.status}`}>{statusLabel(project.status)}</span>
+            </div>
             <p>{project.description || '暂无描述'}</p>
           </div>
           <button className="icon-button" type="button" onClick={onEdit} title="编辑项目" aria-label="编辑项目">
@@ -113,13 +128,19 @@ export default function ProjectDetail({
         <div className="detail-scroll" role="tabpanel">
           <section className="detail-section">
             <h3>基础信息</h3>
-            <div className="info-grid">
-              <span>路径</span>
-              <code>{project.path}</code>
-              <span>更新</span>
-              <strong>{formatDate(project.updatedAt)}</strong>
-              <span>创建</span>
-              <strong>{formatDate(project.createdAt)}</strong>
+            <div className="info-list">
+              <div className="info-item info-item--stacked">
+                <span className="info-label">路径</span>
+                <code>{project.path}</code>
+              </div>
+              <div className="info-item">
+                <span className="info-label">更新</span>
+                <strong>{formatDate(project.updatedAt)}</strong>
+              </div>
+              <div className="info-item">
+                <span className="info-label">创建</span>
+                <strong>{formatDate(project.createdAt)}</strong>
+              </div>
             </div>
             <div className="tag-row roomy">
               {(project.tags ?? []).length ? (
@@ -153,14 +174,8 @@ export default function ProjectDetail({
           </section>
 
           <section className="danger-zone">
-            <button onClick={onArchive}><Archive size={16} />归档项目</button>
-            <button onClick={onRemove}><X size={16} />从 DevDash 移除</button>
-            <button
-              onClick={() => window.confirm('当前版本不会直接删除本地文件，请手动在 Finder 中删除。')}
-            >
-              <Trash2 size={16} />
-              删除本地项目
-            </button>
+            <button type="button" onClick={confirmArchive}><Archive size={16} />归档项目</button>
+            <button type="button" onClick={confirmRemove}><X size={16} />从 DevDash 移除</button>
           </section>
         </div>
       )}

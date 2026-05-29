@@ -152,15 +152,24 @@
   box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
-.search-box input,
-label input,
-label textarea,
-label select {
+.search-box input {
+  flex: 1;
+  min-width: 0;
   width: 100%;
+  min-height: 0;
+  padding: 0;
   border: 0;
   outline: 0;
+  box-shadow: none;
   color: var(--color-text-primary);
   background: transparent;
+}
+
+.search-box input:focus,
+.search-box input:focus-visible {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
 }
 
 .search-box input::placeholder {
@@ -420,6 +429,14 @@ label select {
   line-height: 1.2;
 }
 
+.detail-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
 .detail-header h2 {
   margin: 0;
   min-width: 0;
@@ -428,6 +445,10 @@ label select {
   color: var(--color-text-primary);
   line-height: var(--leading-tight);
   overflow-wrap: anywhere;
+}
+
+.detail-title-row .status-badge {
+  flex-shrink: 0;
 }
 
 .detail-header p {
@@ -602,23 +623,28 @@ label select {
 
 .inspector-toolbar .tab-bar {
   margin-top: 0;
-  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .tab-bar {
   display: flex;
+  width: 100%;
   flex: 0 0 auto;
-  gap: var(--space-1);
-  padding: var(--space-1);
+  gap: 2px;
+  padding: 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background: var(--color-bg-muted);
 }
 
 .tab-bar button {
-  flex: 1;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
   min-height: var(--control-height-lg);
-  padding: 0 var(--space-3);
+  padding: 0 var(--space-2);
   border: 0;
   border-radius: var(--radius-pill);
   background: transparent;
@@ -626,6 +652,7 @@ label select {
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
+  white-space: nowrap;
   transition:
     background var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard);
@@ -670,22 +697,42 @@ label select {
   color: var(--color-text-primary);
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: var(--space-2) var(--space-3);
-  align-items: start;
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
   font-size: var(--text-sm);
 }
 
-.info-grid span {
+.info-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+  min-width: 0;
+}
+
+.info-item--stacked {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+}
+
+.info-label {
   color: var(--color-text-tertiary);
 }
 
-.info-grid code,
+.info-item strong {
+  min-width: 0;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.info-item code,
 .scan-item code {
+  display: block;
   min-width: 0;
   color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
   overflow-wrap: anywhere;
 }
 
@@ -902,7 +949,7 @@ label select {
   gap: var(--space-3);
 }
 
-label {
+.project-modal label {
   display: grid;
   gap: var(--space-2);
   color: var(--color-text-secondary);
@@ -910,9 +957,10 @@ label {
   font-weight: var(--weight-medium);
 }
 
-label input,
-label textarea,
-label select {
+.project-modal label input,
+.project-modal label textarea,
+.project-modal label select {
+  width: 100%;
   min-height: var(--control-height-lg);
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border);
@@ -924,14 +972,14 @@ label select {
     box-shadow var(--duration-fast) var(--ease-standard);
 }
 
-label input:focus,
-label textarea:focus,
-label select:focus {
+.project-modal label input:focus,
+.project-modal label textarea:focus,
+.project-modal label select:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
-label textarea {
+.project-modal label textarea {
   min-height: 76px;
   resize: vertical;
 }

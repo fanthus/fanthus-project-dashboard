@@ -149,8 +149,6 @@ export default function App() {
 
   const removeSelected = async () => {
     if (!selectedProject) return;
-    const confirmed = window.confirm(`从 DevDash 移除 "${selectedProject.name}"？本地项目目录不会被删除。`);
-    if (!confirmed) return;
     try {
       await deleteProjectRecord(selectedProject.id);
     } catch (err) {
