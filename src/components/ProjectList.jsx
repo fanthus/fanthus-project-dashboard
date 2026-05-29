@@ -1,6 +1,6 @@
 import ProjectCard from './ProjectCard';
 
-export default function ProjectList({ projects, selectedId, gitInfo, loading, onSelect }) {
+export default function ProjectList({ projects, selectedId, loading, onSelect }) {
   return (
     <main className="project-list-panel">
       <div className="panel-heading">
@@ -24,7 +24,6 @@ export default function ProjectList({ projects, selectedId, gitInfo, loading, on
             key={project.id}
             project={project}
             selected={project.id === selectedId}
-            gitInfo={gitInfo[project.id]}
             onClick={() => onSelect(project.id)}
           />
         ))}

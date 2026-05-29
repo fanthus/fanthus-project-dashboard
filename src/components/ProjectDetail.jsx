@@ -1,9 +1,12 @@
 import {
+  AlertCircle,
   Archive,
+  CheckCircle2,
   Code2,
   Edit3,
   ExternalLink,
   FolderOpen,
+  GitBranch,
   Terminal,
   Trash2,
   X,
@@ -109,7 +112,23 @@ export default function ProjectDetail({
               <strong>{formatDate(project.createdAt)}</strong>
             </div>
             <div className="tag-row roomy">
-              {(project.tags ?? []).map((tag) => <span key={tag}>{tag}</span>)}
+              {(project.tags ?? []).length ? (
+                (project.tags ?? []).map((tag) => <span key={tag}>{tag}</span>)
+              ) : (
+                <span className="muted-hint">暂无标签</span>
+              )}
+            </div>
+            <div className="overview-git">
+              <span>
+                <GitBranch size={14} />
+                {gitInfo?.branch || (gitInfo?.isGit === false ? '非 Git 仓库' : 'Git 待刷新')}
+              </span>
+              {gitInfo && gitInfo.isGit !== false && (
+                <span className={gitInfo?.hasChanges ? 'dirty' : 'clean'}>
+                  {gitInfo?.hasChanges ? <AlertCircle size={14} /> : <CheckCircle2 size={14} />}
+                  {gitInfo?.hasChanges ? '有未提交变更' : '工作区干净'}
+                </span>
+              )}
             </div>
           </section>
 

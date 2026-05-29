@@ -383,10 +383,9 @@ label select {
 }
 
 .project-card {
-  display: grid;
-  gap: 6px;
+  display: block;
   width: 100%;
-  padding: 8px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -408,19 +407,22 @@ label select {
   box-shadow: inset 3px 0 0 var(--accent), var(--shadow);
 }
 
-.project-title-row {
+.project-card-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  min-width: 0;
 }
 
-.project-title-main {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  min-width: 0;
+.project-card-row h2 {
   flex: 1;
+  min-width: 0;
+}
+
+.project-card .status-badge {
+  padding: 2px 6px;
+  font-size: 11px;
 }
 
 .project-card h2,
@@ -438,22 +440,10 @@ label select {
   font-size: 15px;
 }
 
-.project-card p,
 .detail-header p {
   margin: 6px 0 0;
   color: var(--muted);
   line-height: 1.45;
-}
-
-.project-card .project-card-desc {
-  margin: 0;
-  flex: 1;
-  min-width: 0;
-  font-size: 12px;
-  line-height: 1.3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .status-badge {
@@ -462,11 +452,6 @@ label select {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 760;
-}
-
-.project-card .status-badge {
-  padding: 2px 6px;
-  font-size: 11px;
 }
 
 .status-badge.idea { color: #7b5d20; background: var(--amber-soft); }
@@ -492,42 +477,24 @@ label select {
   overflow-wrap: anywhere;
 }
 
-.project-card .tag-row {
-  gap: 4px;
-}
-
-.project-card .tag-row span {
-  padding: 2px 6px;
-  font-size: 11px;
-}
-
 .tag-row.roomy {
   margin-top: 14px;
 }
 
-.card-meta {
-  display: grid;
-  gap: 6px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.project-card .card-meta {
+.overview-git {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 10px;
-  font-size: 11px;
+  gap: 8px 14px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.card-meta span,
-.git-summary span {
+.overview-git span {
   display: flex;
   align-items: center;
   gap: 6px;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .dirty {
@@ -538,39 +505,9 @@ label select {
   color: var(--green);
 }
 
-.next-step {
-  display: grid;
-  gap: 3px;
-  padding: 10px;
-  border-radius: 8px;
-  background: var(--surface-muted);
-}
-
-.project-card .next-step {
-  gap: 2px;
-  padding: 5px;
-  border-radius: 6px;
-}
-
-.next-step small {
+.muted-hint {
   color: var(--muted);
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.next-step span {
-  display: -webkit-box;
-  overflow: hidden;
-  color: var(--ink-soft);
-  line-height: 1.45;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.project-card .next-step span {
   font-size: 12px;
-  line-height: 1.3;
-  -webkit-line-clamp: 1;
 }
 
 .detail-panel {

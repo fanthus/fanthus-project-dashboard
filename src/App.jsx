@@ -188,7 +188,6 @@ export default function App() {
       <ProjectList
         projects={filteredProjects}
         selectedId={selectedId}
-        gitInfo={gitInfo}
         loading={loading}
         onSelect={setSelectedId}
       />
