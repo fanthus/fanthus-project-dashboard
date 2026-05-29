@@ -1,0 +1,170 @@
+/**
+ * DevDash — Clean design system tokens (TypeUI / design-system skill).
+ * White surface chrome; neutral borders; blue primary for selection & focus.
+ */
+
+:root {
+  /* —— Clean palette (skill defaults) —— */
+  --clean-surface: #ffffff;
+  --clean-text: #111827;
+  --clean-primary: #3b82f6;
+  --clean-primary-hover: #2563eb;
+  --clean-primary-soft: #eff6ff;
+  --clean-primary-border: #bfdbfe;
+  --clean-secondary: #8b5cf6;
+  --clean-success: #16a34a;
+  --clean-success-soft: #f0fdf4;
+  --clean-success-border: #bbf7d0;
+  --clean-warning: #d97706;
+  --clean-warning-soft: #fffbeb;
+  --clean-warning-border: #fde68a;
+  --clean-danger: #dc2626;
+  --clean-danger-soft: #fef2f2;
+  --clean-danger-border: #fecaca;
+
+  /* —— Neutral ramp (cool gray, pairs with white surface) —— */
+  --neutral-0: var(--clean-surface);
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-900: var(--clean-text);
+
+  /* Typography */
+  --font-sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "Menlo", "Inconsolata", monospace;
+
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.45;
+  --leading-relaxed: 1.6;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-pill: 9999px;
+
+  /* —— Surfaces: white shell, gray-50/100 only for inset blocks —— */
+  --color-bg-app: var(--clean-surface);
+  --color-bg-panel: var(--clean-surface);
+  --color-bg-sidebar: var(--clean-surface);
+  --color-bg-list: var(--clean-surface);
+  --color-bg-inspector: var(--clean-surface);
+  --color-bg-surface: var(--clean-surface);
+  --color-bg-surface-subtle: var(--neutral-50);
+  --color-bg-muted: var(--neutral-50);
+  --color-bg-code: var(--neutral-100);
+  --color-bg-hover: color-mix(in srgb, var(--neutral-900) 4%, transparent);
+  --color-bg-selected: var(--clean-primary-soft);
+  --color-bg-overlay: color-mix(in srgb, var(--neutral-900) 20%, transparent);
+
+  /* —— Borders —— */
+  --color-border: var(--neutral-200);
+  --color-border-subtle: var(--neutral-100);
+  --color-border-strong: var(--neutral-300);
+  --color-border-accent: var(--clean-primary-border);
+  --color-border-danger: var(--clean-danger-border);
+  --color-border-success: var(--clean-success-border);
+
+  /* —— Text —— */
+  --color-text-primary: var(--neutral-900);
+  --color-text-secondary: var(--neutral-600);
+  --color-text-tertiary: var(--neutral-500);
+  --color-text-inverse: var(--neutral-0);
+
+  /* —— Accent & semantics —— */
+  --color-accent: var(--clean-primary);
+  --color-accent-strong: var(--clean-primary-hover);
+  --color-accent-soft: var(--clean-primary-soft);
+  --color-accent-muted: var(--clean-primary-border);
+  --color-focus-ring: color-mix(in srgb, var(--clean-primary) 30%, transparent);
+
+  --color-success: var(--clean-success);
+  --color-success-soft: var(--clean-success-soft);
+  --color-warning: var(--clean-warning);
+  --color-warning-soft: var(--clean-warning-soft);
+  --color-danger: var(--clean-danger);
+  --color-danger-soft: var(--clean-danger-soft);
+
+  /* —— Status —— */
+  --status-idea-fg: var(--clean-warning);
+  --status-idea-bg: var(--clean-warning-soft);
+  --status-active-fg: var(--clean-primary-hover);
+  --status-active-bg: var(--clean-primary-soft);
+  --status-paused-fg: var(--neutral-600);
+  --status-paused-bg: var(--neutral-100);
+  --status-shipped-fg: var(--clean-success);
+  --status-shipped-bg: var(--clean-success-soft);
+  --status-archived-fg: var(--clean-danger);
+  --status-archived-bg: var(--clean-danger-soft);
+
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--neutral-900) 6%, transparent);
+  --shadow-modal: 0 8px 30px color-mix(in srgb, var(--neutral-900) 12%, transparent);
+
+  --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+
+  --sidebar-width: 248px;
+  --list-width: minmax(320px, 400px);
+  --control-height: 28px;
+  --control-height-lg: 32px;
+  --list-row-height: 30px;
+  --touch-min: 44px;
+
+  /* Legacy aliases */
+  --bg: var(--color-bg-app);
+  --sidebar: var(--color-bg-sidebar);
+  --surface: var(--color-bg-surface);
+  --surface-strong: var(--color-bg-surface);
+  --surface-muted: var(--color-bg-muted);
+  --line: var(--color-border);
+  --line-strong: var(--color-border-strong);
+  --ink: var(--color-text-primary);
+  --ink-soft: var(--color-text-secondary);
+  --muted: var(--color-text-tertiary);
+  --accent: var(--color-accent);
+  --accent-strong: var(--color-accent-strong);
+  --accent-soft: var(--color-accent-soft);
+  --accent-wash: var(--color-accent-soft);
+  --red: var(--color-danger);
+  --red-soft: var(--color-danger-soft);
+  --amber: var(--color-warning);
+  --amber-soft: var(--color-warning-soft);
+  --green: var(--color-success);
+  --ease: var(--ease-standard);
+  --shadow: var(--shadow-sm);
+  --shadow-soft: var(--shadow-none);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+  }
+}

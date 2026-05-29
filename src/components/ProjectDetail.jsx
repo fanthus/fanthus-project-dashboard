@@ -46,7 +46,7 @@ export default function ProjectDetail({
 
   if (!project) {
     return (
-      <aside className="detail-panel empty-detail">
+      <aside className="detail-panel empty-detail" aria-label="项目详情">
         <div className="empty-state">
           <strong>选择一个项目</strong>
           <span>右侧会展示 README、Git、进度、脚本和打开入口。</span>
@@ -72,35 +72,45 @@ export default function ProjectDetail({
   };
 
   return (
-    <aside className="detail-panel">
-      <div className="detail-header">
-        <div>
-          <span className={`status-badge ${project.status}`}>{statusLabel(project.status)}</span>
-          <h2>{project.name}</h2>
-          <p>{project.description || '暂无描述'}</p>
-        </div>
-        <button className="icon-button" onClick={onEdit} title="编辑项目">
-          <Edit3 size={17} />
-        </button>
-      </div>
-
-      <div className="detail-actions">
-        <button onClick={() => onOpen('finder', project)}><FolderOpen size={16} />Finder</button>
-        <button onClick={() => onOpen('cursor', project)}><Code2 size={16} />Cursor</button>
-        <button onClick={() => onOpen('xcode', project)}><ExternalLink size={16} />Xcode</button>
-        <button onClick={() => onOpen('terminal', project)}><Terminal size={16} />Terminal</button>
-      </div>
-
-      <div className="tab-bar">
-        {['overview', 'readme', 'git', 'scripts'].map((item) => (
-          <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>
-            {item === 'overview' ? '概览' : item === 'readme' ? 'README' : item === 'git' ? 'Git' : '脚本'}
+    <aside className="detail-panel" aria-label="项目详情">
+      <div className="inspector-toolbar">
+        <div className="detail-header">
+          <div>
+            <span className={`status-badge ${project.status}`}>{statusLabel(project.status)}</span>
+            <h2>{project.name}</h2>
+            <p>{project.description || '暂无描述'}</p>
+          </div>
+          <button className="icon-button" type="button" onClick={onEdit} title="编辑项目" aria-label="编辑项目">
+            <Edit3 size={17} />
           </button>
-        ))}
+        </div>
+
+        <div className="detail-actions" role="toolbar" aria-label="打开项目">
+          <button type="button" onClick={() => onOpen('finder', project)}><FolderOpen size={16} />Finder</button>
+          <button type="button" onClick={() => onOpen('cursor', project)}><Code2 size={16} />Cursor</button>
+          <button type="button" onClick={() => onOpen('xcode', project)}><ExternalLink size={16} />Xcode</button>
+          <button type="button" onClick={() => onOpen('terminal', project)}><Terminal size={16} />Terminal</button>
+        </div>
+
+        <div className="tab-bar" role="tablist" aria-label="详情分区">
+          {['overview', 'readme', 'git', 'scripts'].map((item) => (
+            <button
+              key={item}
+              type="button"
+              role="tab"
+              aria-selected={tab === item}
+              className={tab === item ? 'active' : ''}
+              onClick={() => setTab(item)}
+            >
+              {item === 'overview' ? '概览' : item === 'readme' ? 'README' : item === 'git' ? 'Git' : '脚本'}
+            </button>
+          ))}
+        </div>
       </div>
 
+      <div className="inspector-body">
       {tab === 'overview' && (
-        <div className="detail-scroll">
+        <div className="detail-scroll" role="tabpanel">
           <section className="detail-section">
             <h3>基础信息</h3>
             <div className="info-grid">
@@ -160,24 +170,29 @@ export default function ProjectDetail({
       )}
 
       {tab === 'git' && (
-        <GitPanel
-          info={gitInfo}
-          loading={gitLoading}
-          onRefresh={() => {
-            setGitLoading(true);
-            onRefreshGit(project).finally(() => setGitLoading(false));
-          }}
-        />
+        <div className="detail-scroll" role="tabpanel">
+          <GitPanel
+            info={gitInfo}
+            loading={gitLoading}
+            onRefresh={() => {
+              setGitLoading(true);
+              onRefreshGit(project).finally(() => setGitLoading(false));
+            }}
+          />
+        </div>
       )}
 
       {tab === 'scripts' && (
-        <ScriptPanel
-          project={project}
-          runningScript={runningScript}
-          results={scriptResults}
-          onRunScript={runScript}
-        />
+        <div className="detail-scroll" role="tabpanel">
+          <ScriptPanel
+            project={project}
+            runningScript={runningScript}
+            results={scriptResults}
+            onRunScript={runScript}
+          />
+        </div>
       )}
+      </div>
     </aside>
   );
 }

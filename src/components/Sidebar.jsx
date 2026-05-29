@@ -22,7 +22,7 @@ export default function Sidebar({
   }, {});
 
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" aria-label="筛选与操作">
       <div className="brand">
         <div className="brand-mark">D</div>
         <div>

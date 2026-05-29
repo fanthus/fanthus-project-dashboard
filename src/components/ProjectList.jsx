@@ -2,14 +2,14 @@ import ProjectCard from './ProjectCard';
 
 export default function ProjectList({ projects, selectedId, loading, onSelect }) {
   return (
-    <main className="project-list-panel">
-      <div className="panel-heading">
+    <main className="project-list-panel" aria-label="项目列表">
+      <header className="list-toolbar panel-heading">
         <div>
           <p>Projects</p>
           <h1>本地项目全貌</h1>
         </div>
         <span>{projects.length} 个项目</span>
-      </div>
+      </header>
 
       <div className="project-list">
         {loading && <div className="empty-state">正在读取本地项目库...</div>}
