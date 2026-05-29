@@ -376,7 +376,7 @@ label select {
 
 .project-list {
   display: grid;
-  gap: 12px;
+  gap: 6px;
   margin-top: 18px;
   padding-right: 4px;
   overflow: auto;
@@ -384,9 +384,9 @@ label select {
 
 .project-card {
   display: grid;
-  gap: 12px;
+  gap: 6px;
   width: 100%;
-  padding: 16px;
+  padding: 8px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -415,6 +415,14 @@ label select {
   gap: 10px;
 }
 
+.project-title-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
 .project-card h2,
 .detail-header h2 {
   margin: 0;
@@ -426,11 +434,26 @@ label select {
   overflow-wrap: anywhere;
 }
 
+.project-card h2 {
+  font-size: 15px;
+}
+
 .project-card p,
 .detail-header p {
   margin: 6px 0 0;
   color: var(--muted);
   line-height: 1.45;
+}
+
+.project-card .project-card-desc {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .status-badge {
@@ -439,6 +462,11 @@ label select {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 760;
+}
+
+.project-card .status-badge {
+  padding: 2px 6px;
+  font-size: 11px;
 }
 
 .status-badge.idea { color: #7b5d20; background: var(--amber-soft); }
@@ -464,6 +492,15 @@ label select {
   overflow-wrap: anywhere;
 }
 
+.project-card .tag-row {
+  gap: 4px;
+}
+
+.project-card .tag-row span {
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
 .tag-row.roomy {
   margin-top: 14px;
 }
@@ -473,6 +510,13 @@ label select {
   gap: 6px;
   color: var(--muted);
   font-size: 12px;
+}
+
+.project-card .card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 11px;
 }
 
 .card-meta span,
@@ -502,6 +546,12 @@ label select {
   background: var(--surface-muted);
 }
 
+.project-card .next-step {
+  gap: 2px;
+  padding: 5px;
+  border-radius: 6px;
+}
+
 .next-step small {
   color: var(--muted);
   font-weight: 800;
@@ -515,6 +565,12 @@ label select {
   line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.project-card .next-step span {
+  font-size: 12px;
+  line-height: 1.3;
+  -webkit-line-clamp: 1;
 }
 
 .detail-panel {

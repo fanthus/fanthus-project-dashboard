@@ -9,10 +9,12 @@ export default function ProjectCard({ project, selected, gitInfo, onClick }) {
       <div className="project-card-top">
         <div>
           <div className="project-title-row">
-            <h2>{project.name}</h2>
+            <div className="project-title-main">
+              <h2>{project.name}</h2>
+              <p className="project-card-desc">{project.description || '暂无描述'}</p>
+            </div>
             <span className={`status-badge ${project.status}`}>{statusLabel(project.status)}</span>
           </div>
-          <p>{project.description || '暂无描述'}</p>
         </div>
       </div>
 
@@ -24,15 +26,15 @@ export default function ProjectCard({ project, selected, gitInfo, onClick }) {
 
       <div className="card-meta">
         <span title={project.path}>
-          <MapPin size={14} />
+          <MapPin size={12} />
           {project.path}
         </span>
         <span>
-          <GitBranch size={14} />
+          <GitBranch size={12} />
           {gitInfo?.branch || (gitInfo?.isGit === false ? '非 Git' : 'Git 待刷新')}
         </span>
         <span className={gitInfo?.hasChanges ? 'dirty' : 'clean'}>
-          {gitInfo?.hasChanges ? <AlertCircle size={14} /> : <CheckCircle2 size={14} />}
+          {gitInfo?.hasChanges ? <AlertCircle size={12} /> : <CheckCircle2 size={12} />}
           {gitInfo?.hasChanges ? '有未提交变更' : '工作区干净'}
         </span>
       </div>
