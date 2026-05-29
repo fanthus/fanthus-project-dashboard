@@ -1,11 +1,9 @@
-import { Archive, CircleDot, FolderPlus, Plus, Power, Search, Tag } from 'lucide-react';
+import { Archive, CircleDot, FolderPlus, Plus, Power, Tag } from 'lucide-react';
 import { STATUS_OPTIONS } from '../utils/status';
 
 export default function Sidebar({
   projects,
   allTags,
-  search,
-  setSearch,
   statusFilter,
   setStatusFilter,
   tagFilter,
@@ -41,15 +39,6 @@ export default function Sidebar({
           选择文件夹
         </button>
       </div>
-
-      <label className="search-box">
-        <Search size={16} />
-        <input
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="搜索名称、路径、标签"
-        />
-      </label>
 
       <section className="filter-group">
         <div className="filter-title">

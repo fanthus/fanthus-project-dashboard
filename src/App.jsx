@@ -50,7 +50,8 @@ export default function App() {
     return projects.filter((project) => {
       const matchesStatus = statusFilter === 'all' || project.status === statusFilter;
       const matchesTag = tagFilter === 'all' || project.tags?.includes(tagFilter);
-      const haystack = [project.name, project.description, project.path, ...(project.tags ?? [])]
+      const folderName = project.path.split(/[/\\]/).filter(Boolean).pop() ?? '';
+      const haystack = [project.name, project.description, folderName, ...(project.tags ?? [])]
         .join(' ')
         .toLowerCase();
       return matchesStatus && matchesTag && (!query || haystack.includes(query));
@@ -170,8 +171,6 @@ export default function App() {
       <Sidebar
         projects={projects}
         allTags={allTags}
-        search={search}
-        setSearch={setSearch}
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
         tagFilter={tagFilter}
@@ -187,6 +186,9 @@ export default function App() {
         projects={filteredProjects}
         selectedId={selectedId}
         loading={loading}
+        search={search}
+        setSearch={setSearch}
+        gitInfo={gitInfo}
         onSelect={setSelectedId}
       />
 
