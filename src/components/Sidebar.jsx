@@ -1,4 +1,4 @@
-import { Archive, CircleDot, FolderPlus, Plus, Search, Tag } from 'lucide-react';
+import { Archive, CircleDot, FolderPlus, Plus, Power, Search, Tag } from 'lucide-react';
 import { STATUS_OPTIONS } from '../utils/status';
 
 export default function Sidebar({
@@ -12,6 +12,9 @@ export default function Sidebar({
   setTagFilter,
   onAddProject,
   onChooseFolder,
+  autostartEnabled,
+  autostartLoading,
+  onAutostartChange,
 }) {
   const statusCounts = projects.reduce((acc, project) => {
     acc[project.status] = (acc[project.status] ?? 0) + 1;
@@ -95,9 +98,23 @@ export default function Sidebar({
         {!allTags.length && <p className="empty-note">标签不会自动识别，可在编辑项目时手动维护。</p>}
       </section>
 
-      <div className="storage-note">
-        <Archive size={15} />
-        <span>元数据保存在 ~/.devdash/projects.json</span>
+      <div className="sidebar-footer">
+        <label className="autostart-toggle">
+          <Power size={15} />
+          <span>登录时自动打开</span>
+          <input
+            type="checkbox"
+            role="switch"
+            aria-label="登录时自动打开 DevDash"
+            checked={autostartEnabled}
+            disabled={autostartLoading}
+            onChange={(event) => onAutostartChange(event.target.checked)}
+          />
+        </label>
+        <div className="storage-note">
+          <Archive size={15} />
+          <span>元数据保存在 ~/.devdash/projects.json</span>
+        </div>
       </div>
     </aside>
   );

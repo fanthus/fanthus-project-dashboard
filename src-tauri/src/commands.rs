@@ -106,7 +106,9 @@ pub fn open_in_xcode(project_path: String) -> Result<(), String> {
     let path = ensure_saved_project_path(&project_path)?;
     let target = find_first_with_extension(&path, "xcworkspace")
         .or_else(|| find_first_with_extension(&path, "xcodeproj"))
-        .ok_or_else(|| "This project does not contain an .xcworkspace or .xcodeproj file".to_string())?;
+        .ok_or_else(|| {
+            "This project does not contain an .xcworkspace or .xcodeproj file".to_string()
+        })?;
 
     run_open_with_app("Xcode", target)
 }
@@ -169,7 +171,10 @@ fn validate_project_payload(project: &mut Project) -> Result<(), String> {
             return Err("Every script needs a name and command".to_string());
         }
         if looks_dangerous(&script.command) {
-            return Err(format!("Script '{}' looks destructive and was blocked", script.name));
+            return Err(format!(
+                "Script '{}' looks destructive and was blocked",
+                script.name
+            ));
         }
     }
 
@@ -194,7 +199,9 @@ fn reject_broad_directory(path: &Path) -> Result<(), String> {
         PathBuf::from("/private"),
     ];
 
-    if blocked.iter().any(|blocked_path| blocked_path == path) || home.as_ref().is_some_and(|home| home == path) {
+    if blocked.iter().any(|blocked_path| blocked_path == path)
+        || home.as_ref().is_some_and(|home| home == path)
+    {
         return Err("This folder is too broad to add as a project. Please choose a specific project folder.".to_string());
     }
 
@@ -232,7 +239,11 @@ fn ensure_configured_script(project_path: &str, command: &str) -> Result<(), Str
         return Err("Project was not found in DevDash".to_string());
     };
 
-    if project.scripts.iter().any(|script| script.command == command) {
+    if project
+        .scripts
+        .iter()
+        .any(|script| script.command == command)
+    {
         Ok(())
     } else {
         Err("This script is not configured on the saved project".to_string())

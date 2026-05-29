@@ -285,9 +285,45 @@ label select {
   font-style: normal;
 }
 
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.autostart-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  color: var(--ink-soft);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.autostart-toggle span {
+  flex: 1;
+}
+
+.autostart-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.autostart-toggle input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .storage-note,
 .empty-note {
-  margin-top: auto;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;

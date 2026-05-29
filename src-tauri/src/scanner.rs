@@ -17,7 +17,8 @@ pub fn expand_tilde(input: &str) -> Result<PathBuf, String> {
     }
 
     if let Some(rest) = trimmed.strip_prefix("~/") {
-        let home = dirs::home_dir().ok_or_else(|| "Unable to resolve the home directory".to_string())?;
+        let home =
+            dirs::home_dir().ok_or_else(|| "Unable to resolve the home directory".to_string())?;
         return Ok(home.join(rest));
     }
 
@@ -112,7 +113,10 @@ fn detect_tags(path: &Path) -> Vec<String> {
     if has_extension(path, "xcworkspace") {
         tags.insert("Xcode Workspace".to_string());
     }
-    if ["README.md", "readme.md", "README"].iter().any(|name| path.join(name).exists()) {
+    if ["README.md", "readme.md", "README"]
+        .iter()
+        .any(|name| path.join(name).exists())
+    {
         tags.insert("Docs".to_string());
     }
 

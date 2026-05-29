@@ -6,6 +6,7 @@ import ProjectDetail from './components/ProjectDetail';
 import ProjectFormModal from './components/ProjectFormModal';
 import ProjectList from './components/ProjectList';
 import Sidebar from './components/Sidebar';
+import { useAutostart } from './hooks/useAutostart';
 import { useProjects } from './hooks/useProjects';
 import { emptyProject } from './utils/status';
 
@@ -26,6 +27,7 @@ export default function App() {
     openProject,
     runScript,
   } = useProjects();
+  const { enabled: autostartEnabled, loading: autostartLoading, setAutostart } = useAutostart();
 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -178,6 +180,9 @@ export default function App() {
         setTagFilter={setTagFilter}
         onAddProject={openAddModal}
         onChooseFolder={chooseProjectDirectory}
+        autostartEnabled={autostartEnabled}
+        autostartLoading={autostartLoading}
+        onAutostartChange={setAutostart}
       />
 
       <ProjectList

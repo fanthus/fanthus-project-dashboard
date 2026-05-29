@@ -4,7 +4,8 @@ use std::{fs, path::PathBuf};
 use uuid::Uuid;
 
 pub fn data_file_path() -> Result<PathBuf, String> {
-    let home = dirs::home_dir().ok_or_else(|| "Unable to resolve the home directory".to_string())?;
+    let home =
+        dirs::home_dir().ok_or_else(|| "Unable to resolve the home directory".to_string())?;
     Ok(home.join(".devdash").join("projects.json"))
 }
 
@@ -34,7 +35,10 @@ pub fn save_store(store: &ProjectStore) -> Result<(), String> {
     let path = data_file_path()?;
     if let Some(parent) = path.parent() {
         fs::create_dir_all(parent).map_err(|err| {
-            format!("Unable to create data directory {}: {err}", parent.display())
+            format!(
+                "Unable to create data directory {}: {err}",
+                parent.display()
+            )
         })?;
     }
 
@@ -48,7 +52,11 @@ pub fn upsert_project(mut project: Project) -> Result<Project, String> {
     let now = Utc::now().to_rfc3339();
 
     if project.id.trim().is_empty() {
-        if let Some(existing) = store.projects.iter().find(|existing| same_path(&existing.path, &project.path)) {
+        if let Some(existing) = store
+            .projects
+            .iter()
+            .find(|existing| same_path(&existing.path, &project.path))
+        {
             return Ok(existing.clone());
         }
     } else if store
