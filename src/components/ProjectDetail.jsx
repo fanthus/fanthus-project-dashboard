@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { formatDate, statusLabel } from '../utils/status';
+import { gitBranchLabel } from '../utils/git';
 import { confirmAction } from '../utils/confirm';
 import GitPanel from './GitPanel';
 import ReadmeViewer from './ReadmeViewer';
@@ -84,6 +85,8 @@ export default function ProjectDetail({
     onRemove();
   };
 
+  const branch = gitBranchLabel(gitInfo, { loading: gitLoading });
+
   return (
     <aside className="detail-panel" aria-label="项目详情">
       <div className="inspector-toolbar">
@@ -92,6 +95,12 @@ export default function ProjectDetail({
             <div className="detail-title-row">
               <h2>{project.name}</h2>
               <span className={`status-badge ${project.status}`}>{statusLabel(project.status)}</span>
+              {branch && (
+                <span className="detail-branch" title={branch}>
+                  <GitBranch size={13} />
+                  {branch}
+                </span>
+              )}
             </div>
             <p>{project.description || '暂无描述'}</p>
           </div>

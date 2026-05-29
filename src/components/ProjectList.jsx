@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react';
 import ProjectCard from './ProjectCard';
 
-export default function ProjectList({ projects, selectedId, loading, search, setSearch, gitInfo, onSelect }) {
+export default function ProjectList({ projects, selectedId, loading, search, setSearch, onSelect }) {
   const query = search.trim();
 
   return (
@@ -44,7 +44,6 @@ export default function ProjectList({ projects, selectedId, loading, search, set
             key={project.id}
             project={project}
             selected={project.id === selectedId}
-            gitInfo={gitInfo[project.id]}
             onClick={() => onSelect(project.id)}
           />
         ))}

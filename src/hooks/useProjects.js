@@ -26,29 +26,6 @@ export function useProjects() {
     refreshProjects();
   }, [refreshProjects]);
 
-  useEffect(() => {
-    if (!projects.length) return;
-
-    let cancelled = false;
-
-    Promise.all(
-      projects.map(async (project) => {
-        try {
-          const info = await invoke('get_git_info', { projectPath: project.path });
-          if (!cancelled) {
-            setGitInfo((items) => ({ ...items, [project.id]: info }));
-          }
-        } catch {
-          // ignore per-project git read failures
-        }
-      }),
-    );
-
-    return () => {
-      cancelled = true;
-    };
-  }, [projects]);
-
   const saveProject = useCallback(async (project) => {
     const normalized = emptyProject({
       ...project,

@@ -188,7 +188,6 @@ export default function App() {
         loading={loading}
         search={search}
         setSearch={setSearch}
-        gitInfo={gitInfo}
         onSelect={setSelectedId}
       />
 
